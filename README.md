@@ -43,48 +43,78 @@ SELECT * FROM customer_points;
 ## Результат
 ![image](https://github.com/user-attachments/assets/0d43ff9f-1cb8-44ed-bf48-824738f3d09e)
 
-
-## Задание 3. Теперь нужно соединить эти таблицы, чтобы рассчитать расстояние от каждого клиента до каждого дилерского центра (в киллометрах).
+## Задание 2. Создаем аналогичную таблицу для каждого дилерского центра.
 ````
-SELECT * FROM customer_points;
-CREATE TEMP TABLE dealership_points AS (
-SELECT
-dealership_id,
+CREATE TEMP TABLE dealership_points AS(
+SELECT dealership_id,
 point(longitude, latitude) AS lng_lat_point
-FROM dealerships
-);
-SELECT * FROM dealership_points;
+FROM dealerships);
 ````
 ## Результат
-![image](https://github.com/user-attachments/assets/25ba20ec-d762-4d2e-a580-fe6893f2c839)
+![image](https://github.com/user-attachments/assets/299f20cb-9aae-41ca-bf27-9e33ae5d66b1)
 
 Проверим данные
 ````
-SELECT * FROM customer_dealership_distance;
+SELECT * FROM dealership_points
 ````
 ## Результат
-![image](https://github.com/user-attachments/assets/21b0a44d-e22a-4d4e-8ee6-979980c3cf07)
+![image](https://github.com/user-attachments/assets/3f4eaf82-4ee2-4d0f-9b05-881b386e2250)
 
 
-## Задание 4. Объединить эти таблицы, чтобы рассчитать расстояние от каждого клиента до каждого дилерского центра
+## Задание 3. Теперь нужно соединить эти таблицы, чтобы рассчитать расстояние от каждого клиента до каждого дилерского центра (в киллометрах).
 ````
+CREATE TEMP TABLE customer_dealership_distance AS(
+SELECT customer_id,
+dealership_id,
+c.lng_lat_point <@> d.lng_lat_point AS distance
+FROM customer_points c
+CROSS JOIN dealership_points d)
+````
+## Результат
+![image](https://github.com/user-attachments/assets/aa891518-f380-4fc1-a2e8-b81d33feb178)
 
+
+Проверим данные
+````
+SELECT * FROM customer_dealership_distance
+````
+## Результат
+![image](https://github.com/user-attachments/assets/4cea210b-d8b6-4369-824a-73ebf494d9a0)
+
+
+
+## Задание 4. Определяем ближайший дилерский центр для каждого клиента.
+````
+CREATE TEMP TABLE closest_dealerships AS(
+SELECT DISTINCT ON (customer_id)
+customer_id,
+dealership_id,
+distance
+FROM customer_dealership_distance
+ORDER BY customer_id, distance)
 ````
 
 ## Результат
 
-## Задание 5.
+![image](https://github.com/user-attachments/assets/ef82229c-d1f2-4da0-b934-1dc45a90932c)
+
+Проверим данные
 ````
+SELECT * FROM closest_dealerships
 ````
 ## Результат
+![image](https://github.com/user-attachments/assets/a98bc4b2-834d-4cd1-ba0b-552d16af87a3)
 
 
+## Задание 5.Проведем выгрузку полученного результата из временной таблицы в CSV
+Чтобы сохранить этот результат, необходимо просто нажать на эту кнопку, файл автоматически скачивается в формате CSV
 
-## Задание 6.  
-````
-
-````
+ ![image](https://github.com/user-attachments/assets/d7270b4d-ad34-44c9-86ba-45b246cf6475)
 
 ## Результат
+![image](https://github.com/user-attachments/assets/f2586907-b45d-4577-a5f7-7df92858f90a)
+
+
 
 ## Выводы
+В ходе работы были изучены принципы и технологии работы с временными таблицами в SQL, включая создание, наполнение и анализ промежуточных данных. Были получены практические навыки выполнения операций выборки и обработки данных с использованием временных таблиц.
