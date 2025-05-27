@@ -138,7 +138,7 @@ CONCAT('[', [latitude(1)],',', [longitude(1)], ']')
 
 ![image](https://github.com/user-attachments/assets/0ff4b455-beb3-4bae-a8a5-0cfed72af7b0)
 
-Сохраняем результат и получаем работающую карту клиентов и сервесных центров
+Сохраняем результат и получаем карту клиентов и сервесных центров
 ![image](https://github.com/user-attachments/assets/b8f967bc-4bfe-4313-b08a-a97a5134aefd)
 
 ##Ссылка на карту
