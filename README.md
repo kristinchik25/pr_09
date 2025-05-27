@@ -109,12 +109,47 @@ SELECT * FROM closest_dealerships
 ## Задание 5.Проведем выгрузку полученного результата из временной таблицы в CSV
 Чтобы сохранить этот результат, необходимо просто нажать на эту кнопку, файл автоматически скачивается в формате CSV
 
+
  ![image](https://github.com/user-attachments/assets/d7270b4d-ad34-44c9-86ba-45b246cf6475)
 
 ## Результат
 ![image](https://github.com/user-attachments/assets/f2586907-b45d-4577-a5f7-7df92858f90a)
 
 
+## Задание 6.Построим карту клиентов и сервисных центров в облачной визуализации Yandex DataLence.
+Работу будем выполнять в Yandex DataLence, сначала нужно авторизоваться, создать подключение к базе данных, используя данные, выданные преподавателем. Создаем датасет, где выбираем необходимые таблицы
+ 
+![image](https://github.com/user-attachments/assets/9f42a582-fc77-4277-b8ef-65458f35386a)
 
+Затем добавляем необходимые поля, тип данных-геоточка
+````
+CONCAT('[', [latitude],',', [longitude], ']')
+````
+
+````
+CONCAT('[', [latitude(1)],',', [longitude(1)], ']')
+````
+
+![image](https://github.com/user-attachments/assets/7e509859-fd5d-4deb-9763-a27ae2ea936d)
+
+После настраиваем слои
+
+![image](https://github.com/user-attachments/assets/6b8169b4-7841-4a84-94d7-561ec79203a4)
+
+![image](https://github.com/user-attachments/assets/0ff4b455-beb3-4bae-a8a5-0cfed72af7b0)
+
+Сохраняем результат и получаем работающую карту клиентов и сервесных центров
+![image](https://github.com/user-attachments/assets/b8f967bc-4bfe-4313-b08a-a97a5134aefd)
+
+##Ссылка на карту
+https://datalens.yandex.cloud/preview/6nrfxd9hx6p8s
+
+## Задание 7. Удаляем временные таблицы
+````
+DROP TABLE IF EXISTS closest_dealerships;
+DROP TABLE IF EXISTS customer_dealership_distance;
+DROP TABLE IF EXISTS dealership_points;
+DROP TABLE IF EXISTS customer_points; 
+````
 ## Выводы
 В ходе работы были изучены принципы и технологии работы с временными таблицами в SQL, включая создание, наполнение и анализ промежуточных данных. Были получены практические навыки выполнения операций выборки и обработки данных с использованием временных таблиц.
